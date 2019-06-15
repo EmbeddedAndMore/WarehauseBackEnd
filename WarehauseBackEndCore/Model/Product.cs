@@ -41,5 +41,22 @@ namespace WarehauseBackEndCore.Model
                 
             }
         }
+
+        public bool RemoveProduct(int id)
+        {
+            using (WarehauseContext db = new WarehauseContext())
+            {
+                Product p = db.Products.FirstOrDefault(x => x.id == id);
+                if (p != null)
+                {
+                    db.Products.Attach(p);
+                    db.Remove(p);
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
     }
 }
